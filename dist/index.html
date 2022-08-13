@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/eruda/2.4.1/eruda.js"></script>
+    <script>
+      eruda.init();
+    </script>
+    <script src="./index.js"></script>
+  </head>
+  <body>
+    <script>
+      ncz.config({
+        debug: false,
+        appid: "appid",
+        timestamp: "timestamp",
+        nonce: "nonce",
+        signType: "signType",
+        sign: "sign",
+        jsApiList: ["showPictures"],
+      });
+
+      ncz.ready(function () {
+        console.log(`ready->成功`);
+      });
+
+      dff.error(function (err) {
+        console.log(`error->${err}`);
+      });
+
+      // 获取用户
+      ncz.getUserToken({
+        success: (res) => {
+          console.log("success:getUserToken", res);
+        },
+        error: (err) => {
+          console.log("error:getUserToken", err);
+        },
+      });
+
+      // 人脸识别
+      ncz.uniteFaceVerify({
+        success: function (res) {
+          alert(res.data.verify_id);
+        },
+        cancel: function (res) {
+          alert(res.message);
+        },
+        fail: function (res) {
+          alert(res.message);
+        },
+      });
+
+      // 关闭当前webView
+      ncz.closeWebView();
+
+      // 导航栏分享修改
+      ncz.updateShareData({
+        title: "title",
+        desc: "描述",
+        link: "链接",
+        icon: "图标",
+      });
+
+      //  禁用导航栏分享
+      ncz.updateShareData({
+        shareMenu: [], //为空,默认为导航栏
+      });
+
+      // 跳转外部浏览器下载文件;
+      ncz.downloadFile({
+        url: "https://xxx.com/file/20201027/1627e01eb4a32c5ae9851563f63ee3a476acf71a.docx",
+      });
+
+      // 图片预览
+      ncz.showPictures({
+        cur: src, //当前图片
+        index: index, //当前图片索引
+        all: list, //图片列表
+      });
+
+      // 扫一扫;
+      ncz.myczScan({
+        success: function (res) {
+          res.data.content; //扫码内容
+        },
+        error: function (res) {},
+        cancel: function (res) {},
+      });
+
+      // 内部桥接
+      // 获取最近使用
+      ncz.fetchUsedService({
+        success: (res) => {
+          console.log("success:fetchUsedService", res);
+        },
+        error: (err) => {
+          console.log("error:fetchUsedService", err);
+        },
+      });
+      // 获取获取accessToken
+      ncz.fetchAccessToken({
+        success: (res) => {
+          console.log("success: fetchAccessToken", res);
+        },
+        error: (err) => {
+          console.log("error: fetchAccessToken", err);
+        },
+      });
+      // 打开webView
+      ncz.openModule({
+        module: {},
+        success: (res) => {
+          console.log("success:openModule", res);
+        },
+        cancel: (err) => {
+          console.log("cancel:openModule", err);
+        },
+        error: (err) => {
+          console.log("error:openModule", err);
+        },
+      });
+    </script>
+  </body>
+</html>
